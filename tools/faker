@@ -1,0 +1,38 @@
+#!/usr/bin/env perl
+
+# ダミーデータを投入する
+
+use strict;
+use warnings;
+use utf8;
+use lib $ENV{MT_HOME} ? "$ENV{MT_HOME}/lib" : 'lib';
+
+use Getopt::Long qw(:config posix_default no_ignore_case gnu_compat);
+use Data::Dumper;
+use MT;
+
+binmode(STDOUT, ":utf8");
+
+GetOptions(
+    'blog_id=s'  => \my $blog_id,
+    'entry_num=i' => \my $entry_num,
+);
+
+if (!$blog_id) {
+    die "ブログIDを指定してください。\n";
+}
+
+my $mt = MT->new() or die MT->errstr;
+my $blog = MT::Blog->load({
+    id => $blog_id,
+}) or die "ブログが見つかりませんでした。[ID: " . $blog_id . "]\n";
+
+my $options = {
+    entry_num => $entry_num,
+}
+
+require Faker::Cmd;
+Faker::Cmd::main($blog, $options);
+exit;
+
+1;

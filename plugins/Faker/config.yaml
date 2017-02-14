@@ -1,0 +1,9 @@
+id: Faker
+key: Faker
+name: <__trans phrase="Faker Plugin">
+version: 1.0
+description: <__trans phrase="_PLUGIN_DESCRIPTION">
+author_name: <__trans phrase="_PLUGIN_AUTHOR">
+author_link: https://github.com/apricoton
+doc_link: https://github.com/apricoton/MTFaker
+l10n_class: Faker::L10N
