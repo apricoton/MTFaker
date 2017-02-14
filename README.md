@@ -5,3 +5,7 @@
 ```bash
 tools/faker --blog_id=N --name=AuthorName --entry_num=N
 ```
+
+## 今後の計画
+* 画像も入れられるようにする
+* カテゴリーを指定できるようにする
