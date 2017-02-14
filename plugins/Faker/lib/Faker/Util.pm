@@ -5,7 +5,7 @@ use Data::Dumper;
 use base qw(Exporter);
 use MT;
 
-our @EXPORT_OK = qw(doLog dump);
+our @EXPORT_OK = qw(doLog log);
 our $plugin = MT->component('Faker');
 
 # ログ出力
@@ -22,7 +22,7 @@ sub doLog {
 }
 
 # ログ出力(コンソール用)
-sub dump {
+sub log {
     my ($msg, $level) = @_;
     return unless defined($msg);
     
