@@ -14,12 +14,17 @@ use MT;
 binmode(STDOUT, ":utf8");
 
 GetOptions(
-    'blog_id=s'  => \my $blog_id,
+    'blog_id=s'   => \my $blog_id,
+    'name=s'      => \my $author_name,
     'entry_num=i' => \my $entry_num,
 );
 
-if (!$blog_id) {
+unless (defined $blog_id) {
     die "ブログIDを指定してください。\n";
+}
+
+unless (defined $author_name) {
+    die "投稿者名を指定してください。\n";
 }
 
 my $mt = MT->new() or die MT->errstr;
@@ -27,12 +32,16 @@ my $blog = MT::Blog->load({
     id => $blog_id,
 }) or die "ブログが見つかりませんでした。[ID: " . $blog_id . "]\n";
 
+my $author = MT::Author->load({
+    name => $author_name,
+}) or die "投稿者が見つかりませんでした。[Name: " . $author_name . "]\n";
+
 my $options = {
-    entry_num => $entry_num,
-}
+    entry_num => $entry_num // 1,
+};
 
 require Faker::Cmd;
-Faker::Cmd::main($blog, $options);
+Faker::Cmd::main($blog, $author, $options);
 exit;
 
 1;
